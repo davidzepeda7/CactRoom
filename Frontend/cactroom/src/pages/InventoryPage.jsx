@@ -5,6 +5,14 @@ import "react-toastify/dist/ReactToastify.css";
 
 const InventoryPage = ({ refresh }) => {
   const [products, setProducts] = useState([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  // Detecta cambios de tamaño de ventana
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const fetchProducts = async () => {
     try {
@@ -35,7 +43,6 @@ const InventoryPage = ({ refresh }) => {
   };
 
   const handleStockChange = (id, value) => {
-    // Solo números positivos
     if (/^\d*$/.test(value)) {
       setProducts(products.map(p => p._id === id ? { ...p, stock: value } : p));
     }
@@ -50,7 +57,6 @@ const InventoryPage = ({ refresh }) => {
       });
       if (res.ok) {
         toast.success("Stock actualizado correctamente");
-        // Actualizamos el estado local para reflejar el cambio inmediatamente
         const updatedProduct = await res.json();
         setProducts(products.map(p => p._id === id ? updatedProduct : p));
       } else {
@@ -65,46 +71,68 @@ const InventoryPage = ({ refresh }) => {
     <div className="inventory">
       <br />
       <h1>Inventario</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Imagen</th>
-            <th>Nombre</th>
-            <th>Categoría</th>
-            <th>Precio</th>
-            <th>Stock</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((p) => (
-            <tr key={p._id}>
-              <td>{p.image ? <img src={p.image} alt={p.name} className="product-image" /> : "Sin imagen"}</td>
-              <td>{p.name}</td>
-              <td>{p.category}</td>
-              <td>${p.price}</td>
-              <td>
-                <input
-                  type="text"
-                  value={p.stock}
-                  onChange={(e) => handleStockChange(p._id, e.target.value)}
-                />
-                <button className="update-stock-btn" onClick={() => handleUpdateStock(p._id, p.stock)}>💾</button>
-              </td>
-              <td>
-                <button onClick={() => handleDelete(p._id)}>Eliminar</button>
-              </td>
+
+      {/* --- Tabla Desktop --- */}
+      {!isMobile && (
+        <table>
+          <thead>
+            <tr>
+              <th>Imagen</th>
+              <th>Nombre</th>
+              <th>Categoría</th>
+              <th>Precio</th>
+              <th>Stock</th>
+              <th>Acciones</th>
             </tr>
+          </thead>
+          <tbody>
+            {products.map((p) => (
+              <tr key={p._id}>
+                <td>{p.image ? <img src={p.image} alt={p.name} className="product-image" /> : "Sin imagen"}</td>
+                <td>{p.name}</td>
+                <td>{p.category}</td>
+                <td>${p.price}</td>
+                <td>
+                  <input type="text" value={p.stock} onChange={(e) => handleStockChange(p._id, e.target.value)} />
+                  <button className="update-stock-btn" onClick={() => handleUpdateStock(p._id, p.stock)}>💾</button>
+                </td>
+                <td>
+                  <button onClick={() => handleDelete(p._id)}>Eliminar</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      {/* --- Cards Mobile --- */}
+      {isMobile && (
+        <div className="product-cards">
+          {products.map((p) => (
+            <div className="product-card" key={p._id}>
+              {p.image ? <img src={p.image} alt={p.name} /> : <span>Sin imagen</span>}
+              <div className="card-info">
+                <span><strong>Nombre:</strong> {p.name}</span>
+                <span><strong>Categoría:</strong> {p.category}</span>
+                <span><strong>Precio:</strong> ${p.price}</span>
+                <span>
+                  <input type="text" value={p.stock} onChange={(e) => handleStockChange(p._id, e.target.value)} />
+                  <button onClick={() => handleUpdateStock(p._id, p.stock)}>💾</button>
+                </span>
+                <button onClick={() => handleDelete(p._id)}>Eliminar</button>
+              </div>
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
+      )}
 
       <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        closeButton={false}
-        hideProgressBar={false}
-      />
+              position="top-right"
+              autoClose={2000}
+              closeButton={true}
+              hideProgressBar={false}
+              style={{ top: "90px" }} // ajusta este valor según quieras
+            />
     </div>
   );
 };

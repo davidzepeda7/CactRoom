@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../Styles/Navbar.css";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -21,16 +22,23 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <h2 className="navbar-logo">🌱 CactRoom</h2>
-      <ul className="navbar-links">
-        <li><Link to="/dashboard">Dashboard</Link></li>
-        <li><Link to="/inventory">Inventario</Link></li>
-        <li><Link to="/sales">Ventas</Link></li>
-        <li><Link to="/history">Historial</Link></li>
-        <li><Link to="/addproduct">Agregar Producto</Link></li>
+      <div className="navbar-left">
+        <div className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <h2 className="navbar-logo">🌱 CactRoom</h2>
+      </div>
+
+      <ul className={`navbar-links ${menuOpen ? "show" : ""}`}>
+        <li><Link to="/dashboard" onClick={() => setMenuOpen(false)}>Inicio</Link></li>
+        <li><Link to="/inventory" onClick={() => setMenuOpen(false)}>Inventario</Link></li>
+        <li><Link to="/sales" onClick={() => setMenuOpen(false)}>Ventas</Link></li>
+        <li><Link to="/history" onClick={() => setMenuOpen(false)}>Historial</Link></li>
+        <li><Link to="/addproduct" onClick={() => setMenuOpen(false)}>Agregar Producto</Link></li>
         <li>
           <button onClick={handleLogout} className="logout-btn" title="Cerrar sesión">
-            {/* SVG de logout */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"

@@ -64,3 +64,37 @@
 .add-product-page input {
   box-sizing: border-box;
 }
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .add-product-page form {
+    width: 95%; /* ocupa casi todo el ancho de la pantalla */
+    padding: 1.5rem; /* un poco menos de padding para caber en móviles */
+  }
+
+  .add-product-page h2 {
+    font-size: 2rem; /* título más pequeño pero legible */
+    text-align: center;
+  }
+
+  .add-product-page input {
+    font-size: 0.95rem; /* inputs ligeramente más pequeños */
+    padding: 0.7rem 0.9rem;
+  }
+
+  .add-product-page button {
+    font-size: 0.95rem;
+    padding: 0.7rem;
+  }
+
+  /* Flex de inputs en fila se vuelve columna */
+  .add-product-page form > div[style*="display: flex"] {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  /* Ajuste para textos explicativos dentro de flex */
+  .add-product-page form > div[style*="display: flex"] span {
+    font-size: 0.85rem;
+  }
+}

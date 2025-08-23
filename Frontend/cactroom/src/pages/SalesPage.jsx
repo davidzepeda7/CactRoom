@@ -127,9 +127,10 @@ const SalesPage = () => {
       {/* Contenedor de notificaciones */}
       <ToastContainer
         position="top-right"
-        autoClose={3000}   // desaparece solo en 3 segundos
-        closeButton={false} // quita la "X"
-        hideProgressBar={false} // opcional: mantener barra de progreso
+        autoClose={2000}
+        closeButton={true}
+        hideProgressBar={false}
+        style={{ top: "90px" }} // ajusta este valor según quieras
       />
     </div>
   );

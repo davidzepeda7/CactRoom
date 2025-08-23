@@ -76,9 +76,10 @@ const SalesHistoryPage = () => {
 
       <ToastContainer
         position="top-right"
-        autoClose={3000}
-        closeButton={false}
+        autoClose={1000}
+        closeButton={true}
         hideProgressBar={false}
+        style={{ top: "90px" }} // ajusta este valor según quieras
       />
     </div>
   );

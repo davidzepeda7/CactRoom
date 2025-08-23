@@ -129,9 +129,10 @@ const AddProductPage = ({ onAdd = () => { } }) => {
 
       <ToastContainer
         position="top-right"
-        autoClose={3000}
-        closeButton={false}
+        autoClose={2000}
+        closeButton={true}
         hideProgressBar={false}
+        style={{ top: "90px" }} // ajusta este valor según quieras
       />
     </div>
   );
