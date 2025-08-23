@@ -22,7 +22,7 @@ const InventoryPage = ({ refresh }) => {
 
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`http://localhost:4000/api/products/${id}`, { method: "DELETE" });
+      const res = await fetch(`https://cactroom.onrender.com/api/products/${id}`, { method: "DELETE" });
       if (res.ok) {
         toast.success("Producto eliminado correctamente");
         setProducts(products.filter(p => p._id !== id));
@@ -43,7 +43,7 @@ const InventoryPage = ({ refresh }) => {
 
   const handleUpdateStock = async (id, stock) => {
     try {
-      const res = await fetch(`http://localhost:4000/api/products/${id}`, {
+      const res = await fetch(`https://cactroom.onrender.com/api/products/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ stock: parseInt(stock) })

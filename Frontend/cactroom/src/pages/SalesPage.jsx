@@ -9,7 +9,7 @@ const SalesPage = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch("http://localhost:4000/api/products");
+      const res = await fetch("https://cactroom.onrender.com/api/products");
       const data = await res.json();
       setProducts(data);
     } catch (err) {
@@ -45,7 +45,7 @@ const SalesPage = () => {
 
   const handleSale = async () => {
     try {
-      const res = await fetch("http://localhost:4000/api/products/sale", {
+      const res = await fetch("https://cactroom.onrender.com/api/products/sale", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ products: cart }),

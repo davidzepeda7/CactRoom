@@ -10,7 +10,7 @@ const SalesHistoryPage = () => {
   const fetchSummary = async () => {
     try {
       const res = await fetch(
-        `http://localhost:4000/api/products/sales/summary?period=${period}`
+        `https://cactroom.onrender.com/api/products/sales/summary?period=${period}`
       );
       const data = await res.json();
       setSummary(data);
