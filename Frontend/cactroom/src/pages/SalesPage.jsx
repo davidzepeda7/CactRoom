@@ -91,28 +91,38 @@ const SalesPage = () => {
           ))}
         </ul>
       </div>
-
-      <div className="cart">
-        <h2>Carrito:</h2>
-        <ul>
-          {cart.map((c) => (
-            <li key={c.productId}>
-              {c.image && (
-                <img src={c.image} alt={c.name} className="product-image" />
-              )}
-              <div className="product-info">
-                <span className="product-name">{c.name}</span>
-                <span className="product-price">
-                  {c.quantity} x ${c.price}
-                </span>
-              </div>
-            </li>
-          ))}
-        </ul>
-        {cart.length > 0 && (
-          <button onClick={handleSale}>Vender</button>
+<div className="cart">
+  <h2>Carrito:</h2>
+  <ul>
+    {cart.map((c) => (
+      <li key={c.productId} className="cart-item">
+        {c.image && (
+          <img src={c.image} alt={c.name} className="product-image" />
         )}
-      </div>
+        <div className="product-info">
+          <span className="product-name">{c.name}</span>
+          <span className="product-price">
+            {c.quantity} x ${c.price}
+          </span>
+        </div>
+        {/* Botón para eliminar producto */}
+        <button
+          className="remove-btn"
+          onClick={() => {
+            setCart(cart.filter((p) => p.productId !== c.productId));
+            toast.info(`${c.name} eliminado del carrito ❌`);
+          }}
+        >
+          X
+        </button>
+      </li>
+    ))}
+  </ul>
+  {cart.length > 0 && (
+    <button onClick={handleSale}>Vender</button>
+  )}
+</div>
+
 
       {/* Contenedor de notificaciones */}
       <ToastContainer

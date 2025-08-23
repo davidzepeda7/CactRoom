@@ -1,10 +1,10 @@
 .navbar {
-  position: fixed; /* se queda fijo */
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100vw; /* ocupa todo el ancho de la pantalla */
-  height: 60px; /* alto fijo */
-  background: #a5d6a7; /* verde pastel */
+  width: 100vw;
+  height: 60px;
+  background: #a5d6a7;
   padding: 0 30px;
   display: flex;
   align-items: center;
@@ -23,12 +23,15 @@
   list-style: none;
   display: flex;
   gap: 25px;
-  margin: 0 auto;  /* <-- centra el bloque de links */
+  margin: 0 auto;
   padding: 0;
+  align-items: center; /* Alinea verticalmente los links y el icono */
 }
 
-
-.navbar-links li a {
+.navbar-links li a,
+.logout-btn {
+  display: flex;
+  align-items: center;
   text-decoration: none;
   font-size: 1.1rem;
   color: #2e7d32;
@@ -37,7 +40,8 @@
   transition: 0.3s ease;
 }
 
-.navbar-links li a:hover {
+.navbar-links li a:hover,
+.logout-btn:hover {
   background: #81c784;
   color: white;
 }
@@ -45,12 +49,18 @@
 .logout-btn {
   background: none;
   border: none;
-  color: white; /* o el color de tus links */
   cursor: pointer;
-  font-size: 1rem;
-  padding: 0;
+  padding: 6px; /* espacio alrededor del icono */
 }
 
-.logout-btn:hover {
-  text-decoration: underline;
+.logout-btn svg {
+  fill: currentColor; /* hereda color para hover */
+  width: 40px;
+  height: 40px;
+  transition: transform 0.2s ease;
+  text-align: right;
+}
+
+.logout-btn:hover svg {
+  transform: scale(1.1); /* pequeño efecto al pasar el mouse */
 }

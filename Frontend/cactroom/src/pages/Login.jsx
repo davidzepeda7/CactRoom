@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../styles/Login.css";
 
 function Login() {
@@ -11,29 +13,30 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // mostrar spinner y alerta
+    setLoading(true);
 
     try {
       const res = await fetch("http://localhost:4000/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
-        credentials: "include", // importante para que guarde la cookie
+        credentials: "include",
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        localStorage.setItem("loggedIn", "true"); // <-- flag
-        navigate("/dashboard"); // redirige al dashboard
+        localStorage.setItem("loggedIn", "true");
+        toast.success("Login exitoso ✅", { position: "top-right" });
+        setTimeout(() => navigate("/dashboard"), 1000); // espera 1s para mostrar toast
       } else {
-        alert(data.message || "Error en login ❌");
+        toast.error(data.message || "Error en login ❌", { position: "top-right" });
       }
     } catch (error) {
       console.error(error);
-      alert("Error de servidor ❌");
+      toast.error("Error de servidor ❌", { position: "top-right" });
     } finally {
-      setLoading(false); // ocultar spinner
+      setLoading(false);
     }
   };
 
@@ -50,7 +53,6 @@ function Login() {
           required
         />
 
-        {/* Campo contraseña con ojito */}
         <div className="password-wrapper">
           <input
             type={showPassword ? "text" : "password"}
@@ -71,7 +73,6 @@ function Login() {
           {loading ? "Entrando..." : "Entrar"}
         </button>
 
-        {/* Mensaje de carga con spinner */}
         {loading && (
           <div className="loading-message">
             <div className="spinner"></div>
@@ -79,6 +80,8 @@ function Login() {
           </div>
         )}
       </form>
+
+      <ToastContainer />
     </div>
   );
 }
