@@ -1,0 +1,108 @@
+.history-page {
+  min-height: 100vh; /* pantalla completa */
+  width: 100vw;
+  padding: 2rem;
+  background: #e9f7ec; /* verde pastel */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1b3a2f; /* verde oscuro para todo el texto */
+}
+
+.history-page h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #1b3a2f; /* verde oscuro */
+}
+
+.history-page select {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #cdeedb;
+  margin-bottom: 1.5rem;
+  background: #fafffa;
+  color: #1b3a2f; /* verde oscuro */
+}
+
+.history-page p {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+  color: #1b3a2f; /* verde oscuro */
+}
+
+.history-page ul {
+  list-style: none;
+  padding: 0;
+  width: 90%;
+  max-width: 800px;
+}
+
+.sales-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.sale-item {
+  background: #ffffff;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  color: #1b3a2f;
+}
+
+.sale-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+  font-weight: bold;
+}
+
+.products-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.sale-product {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  border-top: 1px solid #d0e8d0;
+  padding-top: 0.5rem;
+}
+
+.sale-product:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.sale-product-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.product-name {
+  font-weight: bold;
+}
+
+.product-quantity, .product-price {
+  font-size: 0.9rem;
+  color: #2e7d32;
+}
+
+.summary-info p {
+  margin: 0.3rem 0;
+  font-size: 1.1rem;
+}

@@ -1,0 +1,28 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* pantalla completa */
+  width: 100vw;
+  background: #e9f7ec; /* verde pastel */
+  color: #2e7d32;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+.dashboard-title {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #388e3c;
+}
+
+.dashboard-clock {
+  font-size: 2.5rem;
+  font-weight: bold;
+  background: #a5d6a7;
+  padding: 20px 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}

@@ -1,0 +1,98 @@
+.inventory {
+  min-height: 100vh; /* pantalla completa */
+  width: 100vw;
+  padding: 2rem;
+  background: #e9f7ec; /* verde pastel claro */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  color: #1b3a2f; /* verde oscuro global */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.inventory h1 {
+  color: #1b3a2f;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.inventory table {
+  width: 90%;
+  border-collapse: collapse;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  color: #1b3a2f; /* verde oscuro para texto en tabla */
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.inventory th, .inventory td {
+  padding: 0.8rem;
+  border: 1px solid #d0e8d0;
+  text-align: center;
+}
+
+.inventory th {
+  background: #c4f0d9;
+  font-weight: bold;
+  color: #1b3a2f; /* verde oscuro */
+  font-size: 1.1rem;
+}
+
+.inventory td {
+  background: #fafffa;
+  color: #1b3a2f; /* verde oscuro */
+  font-size: 1rem;
+}
+
+.inventory button {
+  background: #a8e6cf;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  color: #1b3a2f; /* verde oscuro */
+}
+
+.inventory button:hover {
+  background: #95e6a4;
+  color: #1b3a2f; /* verde oscuro */
+}
+
+.product-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Estilo para el input editable de stock */
+.inventory input[type="text"] {
+  width: 60px;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #c4f0d9;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: #ffffff;
+  transition: 0.2s;
+}
+
+.inventory input[type="text"]:focus {
+  outline: none;
+  border-color: #2e7d32;
+  box-shadow: 0 0 4px #2e7d32;
+}
+
+/* Botón de actualizar stock junto al input */
+.update-stock-btn {
+  margin-left: 5px;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.85rem;
+}

@@ -1,0 +1,66 @@
+.add-product-page {
+  min-height: 100vh; /* pantalla completa */
+  width: 100vw;
+  padding: 2rem;
+  background: #e9f7ec; /* verde pastel */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1b3a2f; /* verde oscuro */
+  
+}
+
+.add-product-page h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #1b3a2f;
+}
+
+.add-product-page form {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 500px;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.add-product-page input {
+  padding: 0.8rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #cdeedb;
+  background: #fafffa;
+  font-size: 1rem;
+  color: #1b3a2f;
+}
+
+.add-product-page button {
+  background: #a8e6cf;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-product-page button:hover {
+  background: #95e6a4;
+}
+
+.add-product-page form .buttons {
+  display: flex;
+  justify-content: center; /* centra los botones horizontalmente */
+  gap: 10px; /* espacio entre botones */
+  margin-top: 1rem;
+}
+
+.add-product-page input {
+  box-sizing: border-box;
+}
