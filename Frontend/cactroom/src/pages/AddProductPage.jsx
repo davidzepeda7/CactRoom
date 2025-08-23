@@ -45,7 +45,7 @@ const AddProductPage = ({ onAdd = () => { } }) => {
     }
 
     try {
-      const res = await fetch("https://cactroom.onrender.comapi/products", {
+      const res = await fetch("https://cactroom.onrender.com/api/products", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
