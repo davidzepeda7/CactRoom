@@ -1,3 +1,4 @@
+/* === ESTILOS PRINCIPALES DE LA PÁGINA DE VENTAS === */
 .sales-page {
   min-height: 100vh;
   width: 100vw;
@@ -16,62 +17,47 @@
   margin-bottom: 1.5rem;
 }
 
-.products-list, .cart {
+/* === CONTENEDORES PRINCIPALES === */
+.products-list,
+.cart {
   width: 90%;
   margin-bottom: 2rem;
   background: #ffffff;
   padding: 1.5rem;
   border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   color: #1b3a2f; /* verde oscuro */
 }
 
-.products-list h2, .cart h2 {
-  color: #1b3a2f; /* verde oscuro */
+.products-list h2,
+.cart h2 {
+  color: #1b3a2f;
   margin-bottom: 1rem;
 }
 
-.products-list ul, .cart ul {
+.products-list ul,
+.cart ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.products-list li, .cart li {
+/* === LISTA DE PRODUCTOS === */
+.products-list li,
+.cart li {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0;
+  justify-content: space-between;
+  padding: 0.8rem 0;
   border-bottom: 1px solid #d0e8d0;
-  color: #1b3a2f; /* verde oscuro */
 }
 
-.products-list li:last-child, .cart li:last-child {
+.products-list li:last-child,
+.cart li:last-child {
   border-bottom: none;
 }
 
-.products-list button, .cart button {
-  background: #a8e6cf;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.products-list button:hover, .cart button:hover {
-  background: #95e6a4;
-}
-
-.product-image {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-right: 10px;
-}
-
+/* Imagen del producto */
 .product-image {
   width: 52px;
   height: 52px;
@@ -81,16 +67,7 @@
   border: 2px solid #cdeedb; /* marco sutil */
 }
 
-/* Contenedor de cada producto */
-.products-list li, .cart li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.8rem 0; /* más espacio vertical */
-  border-bottom: 1px solid #d0e8d0;
-}
-
-/* Datos del producto */
+/* Información del producto */
 .product-info {
   flex: 1;
   display: flex;
@@ -114,4 +91,121 @@
 .product-stock {
   font-size: 0.9rem;
   color: #777; /* gris tenue */
+}
+
+/* === BOTONES === */
+.products-list button,
+.cart button {
+  background: #a8e6cf;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.products-list button:hover,
+.cart button:hover {
+  background: #95e6a4;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .sales-page h1 {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .products-list,
+  .cart {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .product-name {
+    font-size: 1.2rem;
+  }
+
+  .product-price {
+    font-size: 1rem;
+  }
+}
+
+/* === MODAL === */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.modal-content h3 {
+  color: #1b3a2f;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.modal-content p {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.modal-content input[type="password"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #d0e8d0;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.modal-actions button {
+  flex: 1;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Botón confirmar */
+.modal-actions button:first-child {
+  background: #a8e6cf;
+}
+
+.modal-actions button:first-child:hover {
+  background: #95e6a4;
+}
+
+/* Botón cancelar */
+.modal-actions button:last-child {
+  background: #f0f0f0;
+}
+
+.modal-actions button:last-child:hover {
+  background: #e0e0e0;
 }

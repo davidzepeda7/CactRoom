@@ -1,13 +1,14 @@
 import { Router } from "express";
 import {
-    createProduct,
-    getProducts,
-    getProduct,
-    updateProduct,
-    deleteProduct,
-    createSale,
-    getSales,
-    getSalesSummary
+  createProduct,
+  getProducts,
+  getProduct,
+  updateProduct,
+  deleteProduct,
+  createSale,
+  getSales,
+  getSalesSummary,
+  deleteSale
 } from "../controllers/ctrlProducts.js";
 
 const router = Router();
@@ -23,5 +24,6 @@ router.delete("/:id", deleteProduct);
 router.post("/sale", createSale);
 router.get("/sales", getSales);
 router.get("/sales/summary", getSalesSummary);
+router.delete("/sales/:id", deleteSale);
 
 export default router;
