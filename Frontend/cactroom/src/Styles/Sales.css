@@ -131,9 +131,8 @@
     font-size: 1rem;
   }
 }
-
-/* === MODAL === */
-.modal {
+/* === OVERLAY DEL MODAL === */
+.modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -143,18 +142,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  animation: fadeIn 0.3s;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.modal-content {
-  background: #fff; /* Fondo blanco sólido */
-  padding: 2.5rem 2rem 2rem 2rem; /* Más espacio interno */
+/* === CONTENEDOR DEL MODAL === */
+.modal {
+  background: #fff;
+  padding: 2rem;
   border-radius: 18px;
   width: 90%;
   max-width: 400px;
@@ -162,49 +166,39 @@
   text-align: center;
   border: 2px solid #a8e6cf;
   position: relative;
-  animation: modalPop 0.35s cubic-bezier(.68,-0.55,.27,1.55);
+  animation: modalPop 0.35s cubic-bezier(.68, -0.55, .27, 1.55);
   display: flex;
   flex-direction: column;
-  gap: 1.2rem; /* Separación entre elementos */
+  gap: 1.2rem;
 }
 
 @keyframes modalPop {
-  0% { transform: scale(0.8); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
-/* Icono decorativo arriba del modal */
-.modal-content::before {
-  content: "🌵";
-  font-size: 2.5rem;
-  position: absolute;
-  top: -1.6rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #ffffff;
-  border-radius: 50%;
-  padding: 0.3rem 0.7rem;
-  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
-  border: 2px solid #a8e6cf;
-}
-
-.modal-content h3 {
+.modal h3 {
   color: #1b3a2f;
-  margin-bottom: 1rem;
   font-size: 1.5rem;
-  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
 }
 
-.modal-content p {
+.modal p {
   color: #333;
+  font-size: 1rem;
   margin-bottom: 1rem;
-  font-size: 1.05rem;
 }
 
-.modal-content input[type="password"] {
+/* === INPUT DEL MODAL === */
+.modal-input {
   width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
+  padding: 0.6rem;
   border: 1.5px solid #a8e6cf;
   border-radius: 8px;
   font-size: 1rem;
@@ -212,18 +206,19 @@
   transition: border 0.2s;
 }
 
-.modal-content input[type="password"]:focus {
+.modal-input:focus {
   border-color: #2e7d32;
   outline: none;
 }
 
-.modal-actions {
+/* === BOTONES DEL MODAL === */
+.modal-buttons {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
 }
 
-.modal-actions button {
+.modal-buttons button {
   flex: 1;
   padding: 0.6rem;
   border: none;
@@ -231,22 +226,26 @@
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
-}
-
-/* Botón confirmar */
-.modal-actions button:first-child {
-  background: #a8e6cf;
-}
-
-.modal-actions button:first-child:hover {
-  background: #95e6a4;
+  font-size: 1rem;
 }
 
 /* Botón cancelar */
-.modal-actions button:last-child {
+.cancel-btn {
   background: #f0f0f0;
+  color: #333;
 }
 
-.modal-actions button:last-child:hover {
+.cancel-btn:hover {
   background: #e0e0e0;
 }
+
+/* Botón confirmar */
+.confirm-btn {
+  background: #a8e6cf;
+  color: #1b3a2f;
+}
+
+.confirm-btn:hover {
+  background: #95e6a4;
+}
+;
