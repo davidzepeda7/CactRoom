@@ -8,11 +8,17 @@ const SalesHistoryPage = () => {
   const [period, setPeriod] = useState("day");
   const [loading, setLoading] = useState(false);
 
-  // Para el modal
+  // Para el modal de eliminar venta
   const [showModal, setShowModal] = useState(false);
   const [selectedSaleId, setSelectedSaleId] = useState(null);
   const [password, setPassword] = useState("");
 
+  // Para el modal de consolidado
+  const [showSummaryModal, setShowSummaryModal] = useState(false);
+  const [productSummary, setProductSummary] = useState([]);
+  const [loadingSummary, setLoadingSummary] = useState(false);
+
+  // Obtener historial de ventas
   const fetchSummary = async () => {
     setLoading(true);
     try {
@@ -38,13 +44,13 @@ const SalesHistoryPage = () => {
     fetchSummary();
   }, [period]);
 
-  // Abrir modal
+  // Abrir modal de eliminar
   const handleOpenModal = (saleId) => {
     setSelectedSaleId(saleId);
     setShowModal(true);
   };
 
-  // Cerrar modal
+  // Cerrar modal de eliminar
   const handleCloseModal = () => {
     setShowModal(false);
     setSelectedSaleId(null);
@@ -85,11 +91,42 @@ const SalesHistoryPage = () => {
     }
   };
 
+  // Abrir consolidado
+  const handleOpenSummaryModal = async () => {
+    setLoadingSummary(true);
+    setShowSummaryModal(true);
+
+    try {
+      const res = await fetch(
+        `https://cactroom.onrender.com/api/products/sales/consolidated?period=${period}`
+      );
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.message || "Error al cargar consolidado.");
+        return;
+      }
+
+      setProductSummary(data.products || []);
+    } catch (error) {
+      toast.error("Error de conexión al cargar consolidado.");
+    } finally {
+      setLoadingSummary(false);
+    }
+  };
+
+  // Cerrar consolidado
+  const handleCloseSummaryModal = () => {
+    setShowSummaryModal(false);
+    setProductSummary([]);
+  };
+
   return (
     <div className="history-page">
       <br />
       <h2>Historial de Ventas</h2>
 
+      {/* Filtros y botón consolidado */}
       <div className="filters-container">
         <select value={period} onChange={(e) => setPeriod(e.target.value)}>
           <option value="day">Hoy</option>
@@ -97,6 +134,12 @@ const SalesHistoryPage = () => {
           <option value="month">Este Mes</option>
           <option value="all">Todas</option>
         </select>
+      </div>
+
+      <div className="summary-button-container">
+        <button className="summary-btn" onClick={handleOpenSummaryModal}>
+          Ver Consolidado de Productos
+        </button>
       </div>
 
       {loading && <p className="loading-text">Cargando historial...</p>}
@@ -110,6 +153,7 @@ const SalesHistoryPage = () => {
         </p>
       </div>
 
+      {/* Lista de ventas */}
       <ul className="sales-list">
         {summary.sales?.map((sale) => (
           <li key={sale._id} className="sale-item">
@@ -157,9 +201,7 @@ const SalesHistoryPage = () => {
         <div className="modal-overlay">
           <div className="modal">
             <h3>Eliminar Venta</h3>
-            <p>
-              Ingresa la contraseña para confirmar la eliminación de la venta.
-            </p>
+            <p>Ingresa la contraseña para confirmar la eliminación de la venta.</p>
             <input
               type="password"
               placeholder="Contraseña"
@@ -173,6 +215,60 @@ const SalesHistoryPage = () => {
               </button>
               <button onClick={handleDeleteSale} className="confirm-btn">
                 Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de consolidado */}
+      {showSummaryModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>Consolidado de Productos</h3>
+            <p>Resumen de ventas por producto ({period})</p>
+
+            {loadingSummary ? (
+              <p>Cargando consolidado...</p>
+            ) : (
+              <table className="summary-table">
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>Vendidos</th>
+                    <th>Total $</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {productSummary.length > 0 ? (
+                    productSummary.map((product) => (
+                      <tr key={product._id}>
+                        <td className="product-cell">
+                          {product.image && (
+                            <img
+                              src={product.image}
+                              alt={product.name}
+                              className="summary-image"
+                            />
+                          )}
+                          {product.name}
+                        </td>
+                        <td>{product.totalQuantity}</td>
+                        <td>${product.totalAmount}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="3">No hay datos disponibles.</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            )}
+
+            <div className="modal-buttons">
+              <button onClick={handleCloseSummaryModal} className="cancel-btn">
+                Cerrar
               </button>
             </div>
           </div>

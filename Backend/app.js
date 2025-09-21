@@ -4,8 +4,10 @@ import cors from "cors";
 import loginRoutes from "./src/routes/login.js";
 import logoutRoutes from "./src/routes/logout.js";
 
+
 // Rutas
 import productsRoutes from "./src/routes/products.js";
+import salesRoutes from "./src/routes/sales.js";
 
 const app = express();
 
@@ -21,7 +23,8 @@ app.use(express.json());
 // Endpoints
 app.use("/api/products", productsRoutes);   // Productos
 app.use("/api/login", loginRoutes);
-app.use("/api/logout", logoutRoutes);
+app.use("/api/logout", logoutRoutes); 
+app.use("/api/sales", salesRoutes);           // Ventas
 
 
 
