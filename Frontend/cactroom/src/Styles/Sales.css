@@ -153,8 +153,8 @@
 }
 
 .modal-content {
-  background: linear-gradient(135deg, #e9f7ec 80%, #cdeedb 100%);
-  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  background: #fff; /* Fondo blanco sólido */
+  padding: 2.5rem 2rem 2rem 2rem; /* Más espacio interno */
   border-radius: 18px;
   width: 90%;
   max-width: 400px;
@@ -163,6 +163,9 @@
   border: 2px solid #a8e6cf;
   position: relative;
   animation: modalPop 0.35s cubic-bezier(.68,-0.55,.27,1.55);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem; /* Separación entre elementos */
 }
 
 @keyframes modalPop {
