@@ -1,5 +1,5 @@
-import Sale from "../models/Sale.js";
-import Product from "../models/Product.js";
+import Sale from "../models/sale.js";
+import Product from "../models/product.js";
 
 // Consolidado por producto
 export const getProductSummary = async (req, res) => {
