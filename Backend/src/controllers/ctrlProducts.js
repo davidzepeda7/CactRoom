@@ -97,22 +97,21 @@ export const getSales = async (req, res) => {
 export const getSalesSummary = async (req, res) => {
   try {
     const { period } = req.query;
-    let matchDate;
+    let matchDate = null;
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const now = new Date();
 
     if (period === "day") {
-      matchDate = today;
+      matchDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     } else if (period === "week") {
-      const firstDayOfWeek = new Date(today);
-      firstDayOfWeek.setDate(today.getDate() - today.getDay());
+      const firstDayOfWeek = new Date(now);
+      firstDayOfWeek.setDate(now.getDate() - now.getDay());
+      firstDayOfWeek.setHours(0, 0, 0, 0);
       matchDate = firstDayOfWeek;
     } else if (period === "month") {
-      const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-      matchDate = firstDayOfMonth;
+      matchDate = new Date(now.getFullYear(), now.getMonth(), 1);
     } else if (period === "all") {
-      matchDate = null; // Sin filtro, todas las ventas
+      matchDate = null;
     } else {
       return res.status(400).json({ message: "Periodo inválido" });
     }
@@ -132,22 +131,21 @@ export const getSalesSummary = async (req, res) => {
 export const getSalesConsolidated = async (req, res) => {
   try {
     const { period } = req.query;
-    let matchDate;
+    let matchDate = null;
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const now = new Date();
 
     if (period === "day") {
-      matchDate = today;
+      matchDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     } else if (period === "week") {
-      const firstDayOfWeek = new Date(today);
-      firstDayOfWeek.setDate(today.getDate() - today.getDay());
+      const firstDayOfWeek = new Date(now);
+      firstDayOfWeek.setDate(now.getDate() - now.getDay());
+      firstDayOfWeek.setHours(0, 0, 0, 0);
       matchDate = firstDayOfWeek;
     } else if (period === "month") {
-      const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-      matchDate = firstDayOfMonth;
+      matchDate = new Date(now.getFullYear(), now.getMonth(), 1);
     } else if (period === "all") {
-      matchDate = null; // Sin filtro de fechas
+      matchDate = null;
     } else {
       return res.status(400).json({ message: "Periodo inválido" });
     }
@@ -156,16 +154,14 @@ export const getSalesConsolidated = async (req, res) => {
 
     const consolidated = await Sale.aggregate([
       { $match: filter },
-      { $unwind: "$products" }, // Desglosar productos de cada venta
+      { $unwind: "$products" },
       {
         $group: {
           _id: "$products.productId",
           name: { $first: "$products.name" },
           image: { $first: "$products.image" },
           totalQuantity: { $sum: "$products.quantity" },
-          totalRevenue: {
-            $sum: { $multiply: ["$products.quantity", "$products.price"] },
-          },
+          totalRevenue: { $sum: { $multiply: ["$products.quantity", "$products.price"] } },
         },
       },
       { $sort: { totalQuantity: -1 } },
@@ -173,10 +169,10 @@ export const getSalesConsolidated = async (req, res) => {
 
     res.json({ consolidated });
   } catch (error) {
+    console.error("Error en consolidado:", error);
     res.status(500).json({ message: error.message });
   }
 };
-
 
 // Eliminar una venta
 export const deleteSale = async (req, res) => {
