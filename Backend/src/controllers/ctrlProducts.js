@@ -47,15 +47,27 @@ export const updateProduct = async (req, res) => {
   }
 };
 
-// Eliminar producto
+// Eliminar producto con contraseña
 export const deleteProduct = async (req, res) => {
   try {
-    await Product.findByIdAndDelete(req.params.id);
-    res.json({ message: "Producto eliminado" });
+    const { password } = req.body;
+    const { id } = req.params;
+
+    if (!password || password !== process.env.ADMIN_PASSWORD) {
+      return res.status(403).json({ message: "Contraseña incorrecta" });
+    }
+
+    const product = await Product.findById(id);
+    if (!product) return res.status(404).json({ message: "Producto no encontrado" });
+
+    await Product.findByIdAndDelete(id);
+
+    res.json({ message: "Producto eliminado correctamente" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // --- VENTAS ---
 // Registrar venta y actualizar stock
