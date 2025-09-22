@@ -91,29 +91,36 @@ const SalesHistoryPage = () => {
     }
   };
 
-  // Abrir consolidado
-  const handleOpenSummaryModal = async () => {
-    setLoadingSummary(true);
-    setShowSummaryModal(true);
+const handleOpenSummaryModal = async () => {
+  setLoadingSummary(true);
+  setShowSummaryModal(true);
 
-    try {
-      const res = await fetch(
-        `https://cactroom.onrender.com/api/products/sales/consolidated?period=${period}`
-      );
-      const data = await res.json();
+  try {
+    const res = await fetch(
+      `https://cactroom.onrender.com/api/products/sales/consolidated?period=${period}`
+    );
+    const data = await res.json();
 
-      if (!res.ok) {
-        toast.error(data.message || "Error al cargar consolidado.");
-        return;
-      }
-
-      setProductSummary(data.consolidated || []); // <-- aquí
-    } catch (error) {
-      toast.error("Error de conexión al cargar consolidado.");
-    } finally {
-      setLoadingSummary(false);
+    if (!res.ok) {
+      toast.error(data.message || "Error al cargar consolidado.");
+      return;
     }
-  };
+
+    // Mapear totalRevenue a totalAmount para la tabla
+    setProductSummary(
+      data.consolidated.map(p => ({
+        ...p,
+        totalAmount: p.totalRevenue
+      }))
+    );
+
+  } catch (error) {
+    toast.error("Error de conexión al cargar consolidado.");
+  } finally {
+    setLoadingSummary(false);
+  }
+};
+
 
 
   // Cerrar consolidado
