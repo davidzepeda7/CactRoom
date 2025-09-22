@@ -107,13 +107,14 @@ const SalesHistoryPage = () => {
         return;
       }
 
-      setProductSummary(data.products || []);
+      setProductSummary(data.consolidated || []); // <-- aquí
     } catch (error) {
       toast.error("Error de conexión al cargar consolidado.");
     } finally {
       setLoadingSummary(false);
     }
   };
+
 
   // Cerrar consolidado
   const handleCloseSummaryModal = () => {
