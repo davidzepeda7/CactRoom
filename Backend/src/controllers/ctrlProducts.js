@@ -128,6 +128,56 @@ export const getSalesSummary = async (req, res) => {
   }
 };
 
+// --- Consolidado de ventas por producto ---
+export const getSalesConsolidated = async (req, res) => {
+  try {
+    const { period } = req.query;
+    let matchDate;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (period === "day") {
+      matchDate = today;
+    } else if (period === "week") {
+      const firstDayOfWeek = new Date(today);
+      firstDayOfWeek.setDate(today.getDate() - today.getDay());
+      matchDate = firstDayOfWeek;
+    } else if (period === "month") {
+      const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+      matchDate = firstDayOfMonth;
+    } else if (period === "all") {
+      matchDate = null; // Sin filtro de fechas
+    } else {
+      return res.status(400).json({ message: "Periodo inválido" });
+    }
+
+    const filter = matchDate ? { createdAt: { $gte: matchDate } } : {};
+
+    const consolidated = await Sale.aggregate([
+      { $match: filter },
+      { $unwind: "$products" }, // Desglosar productos de cada venta
+      {
+        $group: {
+          _id: "$products.productId",
+          name: { $first: "$products.name" },
+          image: { $first: "$products.image" },
+          totalQuantity: { $sum: "$products.quantity" },
+          totalRevenue: {
+            $sum: { $multiply: ["$products.quantity", "$products.price"] },
+          },
+        },
+      },
+      { $sort: { totalQuantity: -1 } },
+    ]);
+
+    res.json({ consolidated });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 // Eliminar una venta
 export const deleteSale = async (req, res) => {
   try {

@@ -8,7 +8,8 @@ import {
   createSale,
   getSales,
   getSalesSummary,
-  deleteSale
+  getSalesConsolidated, // <--- nuevo
+  deleteSale,
 } from "../controllers/ctrlProducts.js";
 
 const router = Router();
@@ -23,8 +24,11 @@ router.delete("/:id", deleteProduct);
 // VENTAS
 router.post("/sale", createSale);
 router.get("/sales", getSales);
-//router.get("/sales/summary", getSalesSummary);
-router.get("/sales/consolidated", getSalesSummary);
+router.get("/sales/summary", getSalesSummary);
+
+// NUEVO: Consolidado de ventas por producto
+router.get("/sales/consolidated", getSalesConsolidated);
+
 router.delete("/sales/:id", deleteSale);
 
 export default router;
