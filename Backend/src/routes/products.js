@@ -8,6 +8,7 @@ import {
   createSale,
   getSales,
   getSalesSummary,
+  getSalesConsolidated,
   deleteSale
 } from "../controllers/ctrlProducts.js";
 
@@ -24,6 +25,7 @@ router.delete("/:id", deleteProduct);
 router.post("/sale", createSale);
 router.get("/sales", getSales);
 router.get("/sales/summary", getSalesSummary);
+router.get("/sales/consolidated", getSalesConsolidated);
 router.delete("/sales/:id", deleteSale);
 
 export default router;
